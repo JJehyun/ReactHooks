@@ -1,4 +1,6 @@
 # React Memo 관련
+![memo1](https://user-images.githubusercontent.com/86187456/205335782-791303bf-ecd0-4d90-a50d-20ec187bf5d2.png)
+
 - Memoization : 동일한 값을 리턴하는 함수를 여러번 호출할 때 맨 처음 호출한 함수의 리턴값을 메모리에 보관 후 메모리의 저장된 값을 사용하는 것
 - 자주 계산한 값을 cash해서 필요할 때마다 cash에서 꺼내서 사용
 - 렌더링 > 함수 호출 > 렌더링 > Memoize된 값을 사용
@@ -27,4 +29,3 @@ const value = useMemo(
     ()=>{},[]
 )
 ```
-
