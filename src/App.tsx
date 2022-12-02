@@ -1,26 +1,26 @@
-import React from 'react';
-import logo from './logo.svg';
+import { useEffect, useRef, useState } from "react";
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import One from "./pages/one";
+import Two from "./pages/two";
+import Three from './pages/three'
 import './App.css';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+  const [count,setCount] = useState(1);
+  const renderCount = useRef(1)
+      useEffect(()=>{
+        renderCount.current = renderCount.current+1;
+        console.log("랜더링 수 : ", renderCount.current)
+      })
+      return (
+        <BrowserRouter>
+                <Routes>
+                    <Route path="/one" element={<One />} />
+                    <Route path="/two" element={<Two />} />
+                    <Route path="/three" element={<Three />} />
+                </Routes>
+        </BrowserRouter>
+      );
+    }
 
 export default App;
