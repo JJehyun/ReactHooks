@@ -1,22 +1,14 @@
-import { useEffect, useRef, useState } from "react";
- 
+import { useContext, useEffect, useRef, useState } from "react";
+ import { Context } from "../Context/Contexts";
 //input focus 예제
  function Two() {
-     const inputRef = useRef<HTMLInputElement>(null);
-     useEffect(()=>{
-        if(inputRef.current)
-        inputRef.current.focus();
-     },[])
-
-     const onclick = ():void =>{
-        if(inputRef.current)
-        inputRef.current.focus();
-     }
-
+    const data = useContext(Context);
+    console.log(data?.boo())
      return (
          <div>
-             <input ref={inputRef} type="text" placeholder=""></input>
-             <button onClick={onclick}>버튼</button>
+            하위 컴포넌트 context값 전달
+            <p>{data?.name}</p>
+            <p>{data?.num()}</p>
          </div>
     );
 }
