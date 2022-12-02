@@ -1,22 +1,24 @@
-import { useEffect, useRef, useState } from "react";
- 
-//input focus 예제
+import {useEffect, useMemo, useState } from "react";
+
  function Two() {
-     const inputRef = useRef<HTMLInputElement>(null);
-     useEffect(()=>{
-        if(inputRef.current)
-        inputRef.current.focus();
-     },[])
+   const [number, setNumver] = useState<number>(0);
+   const [istrue , setIstrue] = useState<boolean>(true)
 
-     const onclick = ():void =>{
-        if(inputRef.current)
-        inputRef.current.focus();
-     }
+   const memo = useMemo(()=>{
+      return {
+         turetrue : istrue ? "바뀜" : "안바뀜"
+      }
+   },[istrue])
 
+   useEffect(()=>{
+      console.log("useEffect 호출")
+   },[memo])
+   
      return (
          <div>
-             <input ref={inputRef} type="text" placeholder=""></input>
-             <button onClick={onclick}>버튼</button>
+            <input type="number" value={number} onChange={(e) => setNumver(parseInt(e.target.value))} />
+            <p>{memo.turetrue}</p>
+            <button onClick={()=>{setIstrue(!istrue)}}>버튼 </button>
          </div>
     );
 }
