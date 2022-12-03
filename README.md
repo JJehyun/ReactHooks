@@ -61,5 +61,10 @@ const [count, dispatch] = useReducer(reducer, 0);
 //dispatch 호출 후 action으로 state를 변경하는 함수
 const onIncrease = () => dispatch({ type: 'INCREASE' });
 const onDecrease = () => dispatch({ type: 'DECREASE' });
-```!
-![Reducer1](https://user-images.githubusercontent.com/86187456/205430516-f8592eb0-f053-4c66-922f-b2932cd08d7a.png)
+```
+
+
+
+
+
+![Reducer1](https://user-images.githubusercontent.com/86187456/205430532-8529a8f2-b059-438a-8373-252c84209ee0.png)
