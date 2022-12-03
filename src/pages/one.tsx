@@ -1,34 +1,41 @@
-import { useReducer, useState,useEffect } from "react";
+import { useReducer, useState, useEffect, useMemo } from "react";
+import Three from "./three";
 import Two from "./two";
+function One() {
+  const [parent, setParent] = useState<number>(0);
+  const [child, setChild] = useState<number>(0);
+  const parentFun = (): void => {
+    setParent(parent + 1);
+  };
+  const childFun = (): void => {
+    setChild(child + 1);
+  };
 
- //state에는 money의 값이 들어감
- //action은 reducer에게 state를 변경을 요청할 때 요구에 대한 내용이 들어감
- type Action = { type: 'INCREASE' } | { type: 'DECREASE' }
+  type name = {
+    lastName: string;
+    firstName: string;
+  };
+  const obj: name = useMemo(() => {
+    return {
+      lastName: "김",
+      firstName: "김김",
+    };
+  }, []);
 
- function reducer(state: number, action: Action): number {
-  switch (action.type) {
-    case 'INCREASE':
-      console.log("type: INCREASE")
-      return state + 1;
-    case 'DECREASE':
-      console.log("type: DECREASE")
-      return state - 1;
-    default:
-      throw new Error('Unhandled action');
-  }
+  console.log("자식 props 변화X 부모만 재 렌더링");
+  return (
+    <div>
+      <div
+        style={{ backgroundColor: "bisque", width: "300px", height: "300px" }}
+      >
+        <button onClick={parentFun}>부모만 재렌더링</button>
+        <br />
+        <button onClick={childFun}>부모, 자식 재렌더링</button>
+        <Two props={child} />
+        <Three {...obj} />
+      </div>
+    </div>
+  );
 }
-
- function One() {
-        const [count, dispatch] = useReducer(reducer, 0);
-        const onIncrease = () => dispatch({ type: 'INCREASE' });
-        const onDecrease = () => dispatch({ type: 'DECREASE' });
-        return (
-          <div>
-            <p>{count}</p>
-        <button onClick={onIncrease}>+1</button>
-        <button onClick={onDecrease}>-1</button>
-          </div>
-        );
-      }
 
 export default One;
