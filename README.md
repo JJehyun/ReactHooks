@@ -4,6 +4,7 @@
 - useMemo (컴포넌트 기능 최적화)
 - use Callback (컴포넌트 기능 최적화)
 - useReducer (state 생성,관리)
+- React.memo
 
 <useReducer는 State(상태)를 관리하고 업데이트하는 Hook인 useState를 대체할 수 있는 Hook이다.><br />
 <useReducer는 State 업데이트 로직을 분리하여 컴포넌트의 외부에 작성하는 것을 가능하게 함으로써, 코드의 최적화를 이루게 해준다.>
