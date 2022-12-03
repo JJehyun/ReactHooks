@@ -1,29 +1,32 @@
-import { useCallback, useState,useEffect } from "react";
- import Two from "./two";
+import { useReducer, useState,useEffect } from "react";
+import Two from "./two";
 
+ //state에는 money의 값이 들어감
+ //action은 reducer에게 state를 변경을 요청할 때 요구에 대한 내용이 들어감
+ type Action = { type: 'INCREASE' } | { type: 'DECREASE' }
 
- //button눌렀을때 컴포넌트가 재렌더링 되지만 , changeFun , useCallback 함수는  재선언 되지 않고 유지 된다.
- //inputbox를 변경했을때만 useCallback 험수를 재선언해서 재선언한 주소값을 객체에 저장한다.
+ function reducer(state: number, action: Action): number {
+  switch (action.type) {
+    case 'INCREASE':
+      console.log("type: INCREASE")
+      return state + 1;
+    case 'DECREASE':
+      console.log("type: DECREASE")
+      return state - 1;
+    default:
+      throw new Error('Unhandled action');
+  }
+}
+
  function One() {
-  const [number,serNumber] = useState<number>(0);
-  const [istrue,setIstrue] = useState<boolean>(true);
-
-  const changeFun = useCallback(()=>{
-    console.log(`${number}`)
-    return;
-  },[number])
-
-  useEffect(()=>{
-    console.log("useCallback 재할당 됨")
-  },[changeFun])
-
-
+        const [count, dispatch] = useReducer(reducer, 0);
+        const onIncrease = () => dispatch({ type: 'INCREASE' });
+        const onDecrease = () => dispatch({ type: 'DECREASE' });
         return (
           <div>
-              <input type="number" value={number} onChange={(e)=> serNumber(parseInt(e.target.value))} />
-              <button onClick={()=> setIstrue(!istrue)}>{istrue.toString()}</button>
-              <br />
-              <button onClick={changeFun}>useCallback 변경 안됨</button>
+            <p>{count}</p>
+        <button onClick={onIncrease}>+1</button>
+        <button onClick={onDecrease}>-1</button>
           </div>
         );
       }
