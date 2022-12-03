@@ -7,6 +7,9 @@
 - useReducer (state 생성,관리)
 - React.memo (컨포넌트 기능 최적화(컴포넌트))
 
+![REACT MEMO1](https://user-images.githubusercontent.com/86187456/205433976-82df2eeb-bd4d-414e-acdd-1cb8128b0bd6.png)
+![REACT MEMO2](https://user-images.githubusercontent.com/86187456/205433979-4bf4852d-9235-4515-b351-9a78e6691c0e.png)
+
 ## React React.memo(Memoization)
 
 <prop check를 통해 변화가 있으면 재렌더팅, 없으면 기존의 컴포넌트 사용>
@@ -40,3 +43,4 @@ import React, { memo } from "react";
 ///최적화 할 컴포넌트를 memo로 감싸준다.
 export default memo(Two);
 ```
+
