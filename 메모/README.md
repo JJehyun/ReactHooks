@@ -1,30 +1,42 @@
-# React Memo 관련
-- Memoization : 동일한 값을 리턴하는 함수를 여러번 호출할 때 맨 처음 호출한 함수의 리턴값을 메모리에 보관 후 메모리의 저장된 값을 사용하는 것
-- 자주 계산한 값을 cash해서 필요할 때마다 cash에서 꺼내서 사용
-- 렌더링 > 함수 호출 > 렌더링 > Memoize된 값을 사용
-- 오래걸리는 연산을 메모리에 넣어두고 다시 연산하지 않도록 최적화하는 방법
-
-- 배열-items- 안에 요소의 값이 업데이트 될 때만 callback함수를 호출해서 다시 Memoization를 한다
-</br> 
+# React useCallback 관련
+1. Memoization 기법으로 컴포넌트 성능을 최적화하는 도구이다.
+2. Memoization기법이란 반복적으로 계산해야하는 값을 cash 해서 메모리에서 cash된 값을 가져오는 기법
+3. 콜백함수 그자체를 Memoization 하는 것, 필요할 때마다 메모리에 있는 함수를 호출하는 것
+4. 함수,객체,배열이 참조하는 주소값을 처음값으로 고정
+</br>
+</br>
+- 자바스크립트객체(함수,객체,배열) 값은 메모리 주소가 참조
+- 랜더링될 때 마다 자바스크립트 객체는 새로운 주소를 참조하게 됨
+</br>
 </br>
 
-> items 값이 변경될 때마다 다시 콜백함수를 계산해서 value에 삽입 
-> useMemo 구조
+> - 컴포넌트가 다시 랜더링이 되러다도 calculate함수가 초기화 되는 것을 막을 수 있다.
+> - 컴포넌트가 처음 랜더링이 될때만 함수 객체를 만들고, 다시 랜더링 될때는 전에 만들어둔 함수객체를 재사용하는 기법
 ```
-const value = useMemo(
-    ()=>{retrun 값1},[items]
-)
+function Component(){
+    const calculate = useCallback((num)=>{
+        return ~~~
+    },[item]);
+
+    return <div>컴포넌트</div>
+}
 
 
-!값1 이 value값에 들어가게 되고, items의 변수가 변경될 때만 다시 콜백함수를 계산하게됨
-```
-</br> 
-
-> - useMemo의 구조 (콜백 함수 , 배열)
-> - 맨 처음 한번만 Memoization 함
-```
-const value = useMemo(
-    ()=>{},[]
-)
 ```
 
+</br>
+
+>useCallback 구조
+```
+function Component(){
+    // Memoization 할 함수 선언
+    const calculate = useCallback((num)=>{
+        return ~~~
+    // [item] 의존성 배열 , 의존성 배열의 변할 때 Memoization된 함수를 다시 할당
+    },[item]);
+
+    return <div>컴포넌트</div>
+}
+
+
+```

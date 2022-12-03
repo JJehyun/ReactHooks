@@ -1,30 +1,29 @@
-import { useMemo, useState } from "react";
+import { useCallback, useState,useEffect } from "react";
  import Two from "./two";
 
+
+ //button눌렀을때 컴포넌트가 재렌더링 되지만 , changeFun , useCallback 함수는  재선언 되지 않고 유지 된다.
+ //inputbox를 변경했을때만 useCallback 험수를 재선언해서 재선언한 주소값을 객체에 저장한다.
  function One() {
-//Memoization 사용
-//useMemo 사용 예제
+  const [number,serNumber] = useState<number>(0);
+  const [istrue,setIstrue] = useState<boolean>(true);
 
-//변수
-const [hardNumber,setHardNumber] = useState<number>(1);
+  const changeFun = useCallback(()=>{
+    console.log(`${number}`)
+    return;
+  },[number])
 
-//오래걸리는 연산
-const hardCalculate = (number:number) : number =>{
-  for(let i=0; i<999999999; i++){} //오래걸리는 연산
-  return number+10000
-}
+  useEffect(()=>{
+    console.log("useCallback 재할당 됨")
+  },[changeFun])
 
-//hardNumber가 변경 되지 않았다면 hardSum의 값을 재사용한다.
-//hardNumber가 변경 되면 콜백함수를 다시 계산해서 hardSum에 넣게 된다.
-const hardSum = useMemo(()=>{
-  return hardCalculate(hardNumber)
-}
-,[hardNumber])
 
         return (
           <div>
-            <input type="number" value={hardNumber} onChange={(e)=>{setHardNumber(parseInt(e.target.value))}} />
-            <span> + 10000 = {hardSum} </span>
+              <input type="number" value={number} onChange={(e)=> serNumber(parseInt(e.target.value))} />
+              <button onClick={()=> setIstrue(!istrue)}>{istrue.toString()}</button>
+              <br />
+              <button onClick={changeFun}>useCallback 변경 안됨</button>
           </div>
         );
       }

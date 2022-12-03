@@ -17,7 +17,6 @@ function App() {
                 <Routes>
                     <Route path="/one" element={<One />} />
                     <Route path="/two" element={<Two />} />
-                    <Route path="/three" element={<Three />} />
                 </Routes>
         </BrowserRouter>
       );
