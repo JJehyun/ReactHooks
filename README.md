@@ -15,6 +15,7 @@
 <br />
 <br />
 
+[Reducer1](https://user-images.githubusercontent.com/86187456/205430489-85dc82ae-75d3-49bb-9b74-d69185c4ae59.png)
 # Reducer, dispatch , action
 
 - Reducer = state를 업데이트 시켜주는 역할 , state를 변경하고자 한다면 Reducer를 이용해서 변경
@@ -59,4 +60,4 @@ const [count, dispatch] = useReducer(reducer, 0);
 //dispatch 호출 후 action으로 state를 변경하는 함수
 const onIncrease = () => dispatch({ type: 'INCREASE' });
 const onDecrease = () => dispatch({ type: 'DECREASE' });
-```
+```!
