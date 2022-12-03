@@ -62,3 +62,4 @@ const [count, dispatch] = useReducer(reducer, 0);
 const onIncrease = () => dispatch({ type: 'INCREASE' });
 const onDecrease = () => dispatch({ type: 'DECREASE' });
 ```!
+![Reducer1](https://user-images.githubusercontent.com/86187456/205430516-f8592eb0-f053-4c66-922f-b2932cd08d7a.png)
