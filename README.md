@@ -5,6 +5,8 @@
 - use Callback (컴포넌트 기능 최적화)
 - useReducer (state 생성,관리)
 
+<useReducer는 State(상태)를 관리하고 업데이트하는 Hook인 useState를 대체할 수 있는 Hook이다.>
+<useReducer는 State 업데이트 로직을 분리하여 컴포넌트의 외부에 작성하는 것을 가능하게 함으로써, 코드의 최적화를 이루게 해준다.>
 
 ## React useReducer
 1. 여러개의 하위 값을 포함하는 복잡한 state를 사용할 때 사용 
@@ -15,7 +17,7 @@
 <br />
 <br />
 
-[Reducer1](https://user-images.githubusercontent.com/86187456/205430489-85dc82ae-75d3-49bb-9b74-d69185c4ae59.png)
+![Reducer1](https://user-images.githubusercontent.com/86187456/205430489-85dc82ae-75d3-49bb-9b74-d69185c4ae59.png)
 
 # Reducer, dispatch , action
 
@@ -66,5 +68,3 @@ const onDecrease = () => dispatch({ type: 'DECREASE' });
 
 
 
-
-![Reducer1](https://user-images.githubusercontent.com/86187456/205430532-8529a8f2-b059-438a-8373-252c84209ee0.png)
