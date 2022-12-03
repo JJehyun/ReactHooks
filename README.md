@@ -1,11 +1,11 @@
 # React hook 정리 중(branch, 예제 코드 참조)
 - useRef (DOM 직접 접근)
 - Context API (전역 데이터 관리)
-- useMemo (컴포넌트 기능 최적화)
-- use Callback (컴포넌트 기능 최적화)
+- useMemo (컴포넌트 기능 최적화-변수)
+- use Callback (컴포넌트 기능 최적화-힘수)
 - useReducer (state 생성,관리)
-- React.memo
-
+- React.memo (컴포넌트 기능 최적화-컴포넌트)
+...
 ---
 </br>
 </br>
