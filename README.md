@@ -1,78 +1,60 @@
 # React hook 정리 중(branch, 예제 코드 참조)
-- useRef (DOM 직접 접근)
-- Context API (전역 데이터 관리)
-- useMemo (컴포넌트 기능 최적화-변수)
-- use Callback (컴포넌트 기능 최적화-힘수)
-- useReducer (state 생성,관리)
-- React.memo (컴포넌트 기능 최적화-컴포넌트)
+
+- useRef (DOM 객체 접근, QuerySelector같은 기능)</br>
 - useEffect
-- uselayouteffect
-- useTransition
+- Context API (전역 데이터 관리)
+- useMemo (컴포넌트 기능 최적화(변수))
+- use Callback (컴포넌트 기능 최적화(함수))
+- useReducer (state 생성,관리)
+- React.memo (컨포넌트 기능 최적화(컴포넌트))
+- Custom hook (나만의 Hook 만들기)
+- uselayouteffect (화면 랜더링 전 변수 설정, 화면 깜빡임 방지)
+- useTransition (기능 최적화 , 함수 우선순위 미루기(검색 결과))
 - useDeferredValue
-...
+
 ---
-</br>
-</br>
-<useReducer는 State(상태)를 관리하고 업데이트하는 Hook인 useState를 대체할 수 있는 Hook이다.><br />
-<useReducer는 State 업데이트 로직을 분리하여 컴포넌트의 외부에 작성하는 것을 가능하게 함으로써, 코드의 최적화를 이루게 해준다.>
 
-## React useReducer
-1. 여러개의 하위 값을 포함하는 복잡한 state를 사용할 때 사용 
-2. useReducer (Dispatch , Action , Reducer) 3가지로 구성됨
-3. 여러상황마다 각 각 다르게 하나의 state 변경이 필요할 때 사용 (swich문 분기 처리-reducer)
-3. reducer의 내용이 바뀔 때 마다 화면의 재렌더링
-4. swich 문과 혼합해서 사용, 실수를 줄일 수 있음
-<br />
+## React useTransition 사용
+
+- 특정 함수의 호출이 너무 자주 일어나지 않도록 일정 시간 동안 함수 실행을 의도적으로 지연시키는 것
+- useTransition 낮은 우선 순위를 가진 함수를 뒤 늦게 실행하도록 도와주는 hook
+- useTransition()을 사용하여 특정 상태 업데이트의 우선순위가 더 낮다는 것을 React에 알릴 수 있음
+- useTransition과 startTransition은 일부 상태 업데이트를 급하지 않은 업데이트로 간주한다. concurrent에서는 급한 상태 업데이트가 급하지 않은 상태 업데이트를 중단할 수 있다.
+
 <br />
 
-![Reducer1](https://user-images.githubusercontent.com/86187456/205430489-85dc82ae-75d3-49bb-9b74-d69185c4ae59.png)
+> ex) input 창과 input에대한 검색 내용을 보여주는 화면에서 input창은 입력 즉시 입력되어야해서 우선 순위가 높다. 하지만 input에 대한 검색 내용은 통신을 받아와서 렌더링 되기 때문에 우선순위가 낮다.
 
-# Reducer, dispatch , action
+<br />
 
-- Reducer = state를 업데이트 시켜주는 역할 , state를 변경하고자 한다면 Reducer를 이용해서 변경
-- dispatch = state 업데이트를 위한 요구, Reducer에 state 변경을 요구하는 역할
-- action = 요구의 내용 ,  dispatch가 Reducer에게 state 변경을 요구할 때 변경될 state값
+> 사용 예제
 
 ```
-Dispatch(Action) ----> Reducer(State, Action)
+  //useTransition훅 선언
+  const [loading, startTransition] = useTransition();
 
-::dispatch가 state를 action으로 변경을 요청 -> Reducer가 state를 action으로 변경
+
+
+    const onchange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+    //우선 순위가 높은 함수
+    setName(e.target.value);
+
+    //우선 순위가 낮은 함수startTransition로 묶어줌
+    startTransition(() => {
+      setResult(e.target.value);
+    });
+  }, []);
+
+
+      <div>{count}</div>
+
+      //우선 순위가 낮은 함수가 그려지기 전에 띄울 로딩창
+      {loading ? <div>로딩중 로딩중 로딩중 로딩중 로딩중</div> : null}
+      <input value={name} onChange={onchange} />
+      {name
+        ? Array(1000)
+            .fill(null)
+            .map((v, i) => <div key={i}>{result}</div>)
+        : null}
+
 ```
-
-
-
->사용법
-```
-//action의 타입
- type Action = { type: 'INCREASE' } | { type: 'DECREASE' }
-
-//state count 초기값 = 0 
-const [count, dispatch] = useReducer(reducer, 0);
-
-
-// dispatch를 호출 실행되는 reducer 함수
- function reducer(state: number, action: Action): number {
-  switch (action.type) {
-    
-    //전달 되는 action의 type마다 state변경값을 다르게 
-    //return값이 count state값으로 변경되고 재 렌더링됨
-    case 'INCREASE':   
-      return state + 1;
-    
-    case 'DECREASE':    
-      return state - 1;
-
-      //이상한 action이 들어왔을때 error
-    default:
-      throw new Error('Unhandled action');
-  }
-}
-
-//dispatch 호출 후 action으로 state를 변경하는 함수
-const onIncrease = () => dispatch({ type: 'INCREASE' });
-const onDecrease = () => dispatch({ type: 'DECREASE' });
-```
-
-
-
-
