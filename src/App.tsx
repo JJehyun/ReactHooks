@@ -16,6 +16,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/one" element={<One />} />
+        <Route path="/two" element={<Two />} />
       </Routes>
     </BrowserRouter>
   );

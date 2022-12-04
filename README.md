@@ -6,37 +6,79 @@
 - use Callback (컴포넌트 기능 최적화(함수))
 - useReducer (state 생성,관리)
 - React.memo (컨포넌트 기능 최적화(컴포넌트))
+- Custom hook (나만의 Hook 만들기)
 
-## React React.memo(Memoization)
+## React React.Customhook
 
-<prop check를 통해 변화가 있으면 재렌더팅, 없으면 기존의 컴포넌트 사용>
-
-- React.memo란 react에서 제공하는 고착(HOC) 컴포넌트이다.
-- 고착 컴포넌트란, 하나의 컴포넌트를 받아서 최적화된 컴포넌트로 반환해주는 함수
-- React.memo는 렌더링 될때마다 Prop check를 해서 컴포넌트의 변화가 있는지 없는지 확인을 한다.
-- 무분별하게 사용하면 메모리의 공간을 너무 많이 차지하게 됨
-
----
-
-<br />
-
-## React.memo 사용할 때
-
-1.컴포넌트가 같은 prop로 자주 렌더링 될 때<br/> 2.컴포넌트가 렌더링 될 때 마다 복잡한 로직을 처리 해야 할 때
-
----
+- Hook을 추상화된 로직으로 사용할 수 있도록 결합해주고 다른 컴포넌트 사이에서 공통의 상태 관련 로직을 재사용할 수 있도록 함
+- 커스터무 훅은 반복되는 로직을 묶어 재사용하기 위해 사용
+- 커스텀 훅을 사용해서 만든 기능은 각 컴포넌트에서 독립된 상태를 가진다.
+- 한 컴포넌트에 커스텀 훅을 여러번 사용해도 독립적인 state가 여러개 생성이 된다.
 
 </br>
 
-> memo함수 실행 과정</br>
-> 1.memo라는 고착 컴포넌트는 two라는 컴포넌트를 받는다.</br> 2.다시 memo는 최적화된 two 컴포넌트 return한다.
-> </br> </br>
+> 개발을 하다 보면 가끔 상태 관련 로직을 컴포넌트 간에 재사용하고 싶은 경우가 생깁니다. 이 문제를 해결하기 위한 전통적인 방법이 두 가지 있었는데, higher-order components와 render props가 바로 그것입니다. Custom Hook은 이들 둘과는 달리 컴포넌트 트리에 새 컴포넌트를 추가하지 않고도 이것을 가능하게 해줍니다. - 리액트 공식 문서-
 
-> 사용법
+</br>
+
+> 인자를 3개 받는 커스텀 훅 만들기 (home.tsx)
 
 ```
-import React, { memo } from "react";
+import { useInput } from "../Customhook/useInput";
 
-///최적화 할 컴포넌트를 memo로 감싸준다.
-export default memo(Two);
+const displayMessage = (message: string): void => {
+  alert(message);
+};
+
+function home() {
+    //인자를 3개 받는 커스텀 훅 선언(inputbox 값, inputbox 값 변경, alert창 띄우기)
+  const [inputValue, setinputValue, handleSubmit] = useInput(
+    "하이",
+    displayMessage
+  );
+  return (
+    <div>
+      <input value={inputValue} onChange={setinputValue}></input>
+      <button onClick={handleSubmit}>버튼</button>
+    </div>
+  );
+}
+
+export default home;
+```
+
+</br>
+</br>
+
+> 커스텀 훅 제작 (useInput.tsx)
+
+```
+//커스텀 훅 returnType 선언
+type returnType = [
+  string,
+  (event: ChangeEvent<HTMLInputElement>) => void,
+  MouseEventHandler<HTMLButtonElement>
+];
+
+export function useInput(
+
+  //useInput 커스텀 훅이 받는 2개의 인자
+  initialForm: string,
+  submitAction: (message: string) => void
+): returnType {
+  //커스텀 훅 내부의 useState 각 커스텀 훅 마다 다르게 관리 됨
+  const [inputValue, setinputValue] = useState<string>(initialForm);
+
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setinputValue(event.target.value);
+  };
+
+  const handleSubmit = (): void => {
+    setinputValue("");
+    alert(inputValue);
+  };
+
+  return [inputValue, handleChange, handleSubmit];
+}
+
 ```
