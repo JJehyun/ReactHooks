@@ -11,9 +11,12 @@
 - uselayouteffect (화면 랜더링 전 변수 설정, 화면 깜빡임 방지)
 - useTransition (기능 최적화 , 함수 우선순위 미루기(사용자성 개선))
 - useDeferredValue (기능 최적화 , 함수 우선순위 미루기(사용자성 개선))
-- Suspense
+- Suspense (비동기 작업 동안 대체 컴포넌트 띄우기)
 
 ---
+
+![sus1](https://user-images.githubusercontent.com/86187456/205493252-1dc0b54d-5704-44a6-871d-b8c6a62162bb.png)
+>리액트 예제 코드
 
 ## React useDeferredValue 사용
 
@@ -53,3 +56,7 @@ suspense
       </Suspense>
     </>
 ```
+
+
+![suspense1](https://user-images.githubusercontent.com/86187456/205493279-c83d4a43-62ce-4942-b7cc-af3a4a94ddc9.png)
+![suspense2](https://user-images.githubusercontent.com/86187456/205493280-1f5885a7-a991-4f7f-9742-d2611474465a.png)
