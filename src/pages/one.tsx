@@ -1,19 +1,17 @@
 import { useState, ChangeEvent } from "react";
-import { useInput } from "../Customhook/useInput";
-
-const displayMessage = (message: string): void => {
-  alert(message);
-};
-
+import Timer from "./three";
 function One() {
-  const [inputValue, setinputValue, handleSubmit] = useInput(
-    "하이",
-    displayMessage
-  );
+  const [showTimer, setShowTimer] = useState<boolean>(false);
   return (
     <div>
-      <input value={inputValue} onChange={setinputValue}></input>
-      <button onClick={handleSubmit}>버튼</button>
+      {showTimer && <Timer />}
+      <button
+        onClick={() => {
+          setShowTimer(!showTimer);
+        }}
+      >
+        Toggle Timer
+      </button>
     </div>
   );
 }
