@@ -22,9 +22,13 @@
 
   <br/>
 ![effect1](https://user-images.githubusercontent.com/86187456/205477412-f496d198-d56a-4668-986d-8b52fa7817b3.png)
-> useEffect의 CLeanUp 작업 <br />
-> 마운트 시 아벤트 리스너를 통해 event를 추가했다면 언마운트 시 event를 삭제해야한다. (event 삭제 안할 시 메모리 누수 발생 가능) <br />
-> componentWillUnmount 기능 == return 함수 
+
+  <br/>
+  <br/>
+  
+>- useEffect의 CLeanUp 작업 <br />
+>- 마운트 시 아벤트 리스너를 통해 event를 추가했다면 언마운트 시 event를 삭제해야한다. (event 삭제 안할 시 메모리 누수 발생 가능) <br />
+>- componentWillUnmount 기능 == return 함수 
 
 ```
   useEffect(() => {
