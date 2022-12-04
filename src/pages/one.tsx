@@ -1,10 +1,13 @@
 import { useState, startTransition, Suspense } from "react";
 import Two from "./two";
+import Three from "./three";
 //App
 function One() {
   return (
     <>
-      <Two />
+      <div>hihi</div>
+      {/* <Two num={3} />
+      <Three num={3} /> */}
     </>
   );
 }

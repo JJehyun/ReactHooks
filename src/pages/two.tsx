@@ -1,13 +1,15 @@
 import { useEffect, ReactNode } from "react";
 import { images } from "../database/image";
 import Three from "./three";
-//LazyWrapper
-function Two() {
+//function
+function Two(num: number) {
   return (
     <>
-      {images.map((image) => (
-        <Three key={image.id} src={image.src} name={image.name} />
-      ))}
+      <div
+        style={{ width: "300px", height: "300px", border: "green 1px solid" }}
+      >
+        function style component
+      </div>
     </>
   );
 }
