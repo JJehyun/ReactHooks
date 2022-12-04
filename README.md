@@ -60,3 +60,63 @@ suspense
 
 ![suspense1](https://user-images.githubusercontent.com/86187456/205493279-c83d4a43-62ce-4942-b7cc-af3a4a94ddc9.png)
 ![suspense2](https://user-images.githubusercontent.com/86187456/205493280-1f5885a7-a991-4f7f-9742-d2611474465a.png)
+
+
+
+<br />
+# React.lazy
+- React.lazy로 불러온 컴포넌트는 단독으로 쓰일 수 없고, React.Suspense 컴포넌트로 하위에서 렌더링되어야 한다.
+
+>사용법<br />
+>React 공식 문서에 따르면 Router 바로 아래에 Suspense를 위치시키고, Route로 보여줄 컴포넌트들을 React.lazy로 불러올 것을 권장함
+
+```
+--예제 코드--
+const Home = lazy(() => import('./routes/Home'));
+const About = lazy(() => import('./routes/About'));
+
+const App = () => (
+  <Router>
+    <Suspense fallback={<div>Loading...</div>}>
+      <Switch>
+        <Route exact path="/" component={Home}/>
+        <Route path="/about" component={About}/>
+      </Switch>
+    </Suspense>
+  </Router>
+```
+
+>suspense와 react.lazy의 다른 예시
+
+```
+import React, { lazy, Suspense } from 'react';
+
+const AvatarComponent = lazy(() => import('./AvatarComponent'));
+
+const renderLoader = () => <p>Loading</p>;
+
+const DetailsComponent = () => (
+  <Suspense fallback={renderLoader()}>
+    <AvatarComponent />
+  </Suspense>
+)
+
+```
+
+
+```
+
+const AvatarComponent = lazy(() => import('./AvatarComponent'));
+const InfoComponent = lazy(() => import('./InfoComponent'));
+const MoreInfoComponent = lazy(() => import('./MoreInfoComponent'));
+
+const renderLoader = () => <p>Loading</p>;
+
+const DetailsComponent = () => (
+  <Suspense fallback={renderLoader()}>
+    <AvatarComponent />
+    <InfoComponent />
+    <MoreInfoComponent />
+  </Suspense>
+)
+```
