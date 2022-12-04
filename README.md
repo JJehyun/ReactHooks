@@ -13,6 +13,9 @@
 - useDeferredValue (기능 최적화 , 함수 우선순위 미루기(사용자성 개선))
 
 ---
+<br />
+![12](https://user-images.githubusercontent.com/86187456/205489638-d81e34e0-7263-4355-a509-8245558a4d8e.png)
+<br />
 
 ## React useDeferredValue 사용
 
@@ -45,3 +48,4 @@
             .map((v, i) => <div key={i}>{result}</div>)
       : null}
 ```
+
