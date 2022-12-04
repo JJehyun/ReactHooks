@@ -13,7 +13,7 @@
 - useDeferredValue
 
 ---
-
+![생명구조](https://user-images.githubusercontent.com/86187456/205478873-e7620139-b401-467d-92d1-5708e05f52ab.png)
 ## React uselayouteffect 사용
 
 - stateUpdate 때문에 화면 깜빡임이 발생할 때 사용하는 hook
@@ -50,3 +50,4 @@
     </>
 
 ```
+
