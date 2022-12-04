@@ -14,6 +14,12 @@
 
 ---
 
+<br />
+
+![12](https://user-images.githubusercontent.com/86187456/205489774-9a5a9041-27ad-42d5-a533-432feb7d6caa.png)
+
+<br />
+
 ## React useTransition 사용
 
 - 특정 함수의 호출이 너무 자주 일어나지 않도록 일정 시간 동안 함수 실행을 의도적으로 지연시키는 것
