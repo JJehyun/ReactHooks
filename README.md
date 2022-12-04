@@ -8,51 +8,45 @@
 - React.memo (컨포넌트 기능 최적화(컴포넌트))
 - Custom hook (나만의 Hook 만들기)
 - useEffect
+- uselayouteffect (화면 깜빡거림 방지)
+- useTransition
+- useDeferredValue
 
 ---
 
-## React useEffect 사용
+## React uselayouteffect 사용
 
-- 컴포넌트가 마운트 되었을 때
-- 컴포넌트가 업데이트 되었을 때
-- 마운트 해제(화면에서 사라질 때) 되었을 때
+- stateUpdate 때문에 화면 깜빡임이 발생할 때 사용하는 hook
+- 네트워크 , 캐시를 통해 변수를 받아서 렌더링 할 때 약간의 버벅거림이 생김(깜빡 거림)
+- render -> Browser paint screen -> cleanup Effects (useEffect는 화면을 그린 후 실행됨)
+- reder -> useLayoutEffect -> Browser paint screen (화면을 그리기 전에 실행됨)
 
-  <br/>
+### 정리
 
-> useEffect의 CLeanUp 작업
+- useEffect의 이펙트는 DOM이 화면에 그려진 이후에 호출된다.
 
-```
-  useEffect(() => {
-    //컴포넌트가 맨처음 렌더링 됐을 때만 실행되는 콜백 (의존성배열이 [])
-    const timer = setInterval(() => {
-      console.log("타이머 ㅅㅈ");
-    }, 1000);
+- useLayoutEffect의 이펙트는 DOM이 화면에 그려지기 전에 호출된다.
 
-    //컴포넌트가 언마운트 될때 화면에서 사라질때 실행되는 콜백 (의존성배열 [])
-    return () => {
-      clearInterval(timer);
-      console.log("타이머 ㅈㄹ");
-    };
-  }, []);
+- 따라서 렌더링할 상태가 이펙트 내에서 초기화되어야 할 경우, 사용자 경험을 위해 useLayoutEffect를 활용하자!
+
+> useLayoutEffect 사용법
 
 ```
+  const [name, setName] = useState("");
 
-</br>
+  useLayoutEffect(() => {
+    //네트워크 통신...
+    setName("김제현");
+  });
 
-> 사용법
+    //useEffect -> 사용하면 useEffect 보다 Browser paint screen 먼저 일어나 화면 깜빡임이 생김
+    //useLayoutEffect -> 사용하면 Browser paint screen 보다 useLayoutEffect 먼저 일어나 깜빡임이 사라짐
+    <>
+      <div>ㅎㅇㅎㅇㅎㅇ{name}</div>
+      <div>ㅎㅇㅎㅇㅎㅇ{name}</div>
+      <div>ㅎㅇㅎㅇㅎㅇ{name}</div>
+      <div>ㅎㅇㅎㅇㅎㅇ{name}</div>
+      <div>ㅎㅇㅎㅇㅎㅇ{name}</div>
+    </>
 
-```
-useEffect (()=>{
-  //렌더링 될때 마다 실행될 콜백함수
-})
-
-
-useEffect (()=>{
-  //마운트 될때만 첫번째 랜더링에만 실행되는 콜백 함수
-},[])
-
-
-useEffect(()=>{
-  //의존성 배열이 변경될 때마다 실행될 콜백 함수
-},[의존성 배열])
 ```

@@ -1,18 +1,19 @@
-import { useState, ChangeEvent } from "react";
-import Timer from "./three";
+import { useState, useLayoutEffect } from "react";
+
 function One() {
-  const [showTimer, setShowTimer] = useState<boolean>(false);
+  const [name, setName] = useState("");
+  useLayoutEffect(() => {
+    setName("김제현");
+  });
+
   return (
-    <div>
-      {showTimer && <Timer />}
-      <button
-        onClick={() => {
-          setShowTimer(!showTimer);
-        }}
-      >
-        Toggle Timer
-      </button>
-    </div>
+    <>
+      <div>ㅎㅇㅎㅇㅎㅇ{name}</div>
+      <div>ㅎㅇㅎㅇㅎㅇ{name}</div>
+      <div>ㅎㅇㅎㅇㅎㅇ{name}</div>
+      <div>ㅎㅇㅎㅇㅎㅇ{name}</div>
+      <div>ㅎㅇㅎㅇㅎㅇ{name}</div>
+    </>
   );
 }
 
