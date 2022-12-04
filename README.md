@@ -60,7 +60,7 @@ const DetailsComponent = () => (
 
 ```
 
->이미지 
+>이미지 View(React.lazy()) pages src 코드 참고
 
 ![lazy1](https://user-images.githubusercontent.com/86187456/205501317-6c578758-0986-4d6d-9b08-a5fe5be8b7b2.png)
 ![lazy2](https://user-images.githubusercontent.com/86187456/205501321-7279e56b-5120-49cb-92c8-6db322a19152.png)
