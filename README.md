@@ -11,37 +11,45 @@
 - uselayouteffect (화면 랜더링 전 변수 설정, 화면 깜빡임 방지)
 - useTransition (기능 최적화 , 함수 우선순위 미루기(사용자성 개선))
 - useDeferredValue (기능 최적화 , 함수 우선순위 미루기(사용자성 개선))
+- Suspense
 
 ---
 
 ## React useDeferredValue 사용
 
-- 낮은 우선 순위를 지정하기 위한 훅
-- useTransition = 함수 실행의 우선 순위를 지정 , useDeferredValue = 값의 업데이트 우선순위 지정
-- 리액트가 성능에 따라 성능적으로 여유가 있을 때 업데이트를 시켜주는 훅
-- 변수값 업데이트가 느리게 진행되어도 되는 것은 useDeferredValue훅을 이용한다.
-- useMemo와 사용 시 불 필요한 재 랜더링을 막으면서 하위 컴포넌트나 상태의 업데이트를 지연시킬 수 있다.
-  <br />
+- 비동기 작업을 하는 컴포넌트를 자식으로 가짐 , 자식 컴포넌트가 비동기 작업을 진행하는 동안, 콜백에 할당 받은 컴포넌트를 렌더링함
+- 자식 컴포넌트의 비동기 작업이 끝나면 리렌더링을 해서 자식 컴포넌트를 보여줌
+- Start fetching -> Start rendering -> Finish fetching
+- suspense를 활용하면 해당 컴포넌트를 사용하는 측에서 로딩 상태를 표현하는 방식을 정의하고 ,UI 일관성을 유지할 수 있음
+
+- React Query , Recoil , Relay --> suspense 사용하기 더 편함
+
+<br />
+
+pages 예제 코드 참고
 
 <br />
 
 > 사용 예제
 
 ```
-  const [name, setName] = useState<string>("");
-  //useDeferredValue 훅 선언(덜 중요한 값 deferredName 변수를 사용)
-  const deferredName = useDeferredValue(name);
+import { Suspense } from "react";
+suspense
 
-
-  //useMemo로 deferredName의 값이 변할 때 여유있게 랜더링
-  const result = useMemo(() => deferredName + "의 결과", [deferredName]);
-
-
-
-  //deferredName를 화면 끊김없이 렌더링
-       {deferredName
-        ? Array(1000)
-            .fill(null)
-            .map((v, i) => <div key={i}>{result}</div>)
-      : null}
+      <nav>
+        <button onClick={() => startTransition(() => setPage(0))}>
+          첫 번째 페이지
+        </button>
+        <button onClick={() => startTransition(() => setPage(1))}>
+          두 번째 페이지
+        </button>
+        <button onClick={() => startTransition(() => setPage(2))}>
+          세 번째 페이지
+        </button>
+      </nav>
+      //fallback에 비동기 작업이 끝나기 전까지 렌더링 될 컴포넌트 넣어둠
+      <Suspense fallback={<div>로딩 중</div>}>
+        {pages[page]}
+      </Suspense>
+    </>
 ```
