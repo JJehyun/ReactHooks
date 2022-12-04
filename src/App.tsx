@@ -1,8 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import One from "./pages/one";
-import Two from "./pages/two";
-import Three from "./pages/three";
 import "./App.css";
 
 function App() {
