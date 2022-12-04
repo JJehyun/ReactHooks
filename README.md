@@ -18,7 +18,7 @@
 - 마운트 해제(화면에서 사라질 때) 되었을 때
 
   <br/>
-
+![effect1](https://user-images.githubusercontent.com/86187456/205477412-f496d198-d56a-4668-986d-8b52fa7817b3.png)
 > useEffect의 CLeanUp 작업
 
 ```
@@ -56,3 +56,4 @@ useEffect(()=>{
   //의존성 배열이 변경될 때마다 실행될 콜백 함수
 },[의존성 배열])
 ```
+
