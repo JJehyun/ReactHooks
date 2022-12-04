@@ -5,6 +5,10 @@
 - use Callback (컴포넌트 기능 최적화-힘수)
 - useReducer (state 생성,관리)
 - React.memo (컴포넌트 기능 최적화-컴포넌트)
+- useEffect
+- uselayouteffect
+- useTransition
+- useDeferredValue
 ...
 ---
 </br>
