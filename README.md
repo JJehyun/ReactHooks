@@ -13,49 +13,56 @@
 - useDeferredValue (기능 최적화 , 함수 우선순위 미루기(사용자성 개선))
 - Suspense (비동기 작업 동안 대체 컴포넌트 띄우기)
 - React.lazy() (비동기 작업 동안 대체 컴포넌트 띄우기)
+- React LifeCycle (리액트 생명 주기)
 
 ---
 
-## React React.lazy 사용
-
-- pages의 이미지 업로드 예제 코드 참고 바람
-
-- React.lazy로 불러온 컴포넌트는 단독으로 쓰일 수 없고, React.Suspense 컴포넌트로 하위에서 렌더링되어야 한다.
-- lazy 컴포넌트는 반드시 Suspense 컴포넌트 하위에서 렌더링되어야 하며 Suspense는 lazy 컴포넌트가 로드되길 기다리는 동안 로딩 화면과 같은 예비 컨텐츠를 보여줄 수 있게 해줌
-  <br />
-
-> 사용법<br />
-> React 공식 문서에 따르면 Router 바로 아래에 Suspense를 위치시키고, Route로 보여줄 컴포넌트들을 React.lazy로 불러올 것을 권장함
+## React React.라이프 사이클 사용
 
 ```
---예제 코드--
-const Home = lazy(() => import('./routes/Home'));
-const About = lazy(() => import('./routes/About'));
+ReactDOM 순서
+//화면이 처음 그려질 때
+1.getDefaultProps() -> getInitalState() -> componentWillMount() -> render() ->
+componentDidMount()
 
-const App = () => (
-  <Router>
-    <Suspense fallback={<div>Loading...</div>}>
-      <Switch>
-        <Route exact path="/" component={Home}/>
-        <Route path="/about" component={About}/>
-      </Switch>
-    </Suspense>
-  </Router>
-```
-
-> suspense와 react.lazy의 다른 예시
+//컴포넌트에 변화가 생겼을 때
+1.componentWillReceiverProps() -> shouldCompoentUpdate() ->
+compoenntWillUpdate() -> rener() ->componentDidUpdate()
 
 ```
-import React, { lazy, Suspense } from 'react';
 
-const AvatarComponent = lazy(() => import('./AvatarComponent'));
+> 최초 렌더링
 
-const renderLoader = () => <p>Loading</p>;
+- componentWillMount() : 컴포넌트가 생성되기 전에 처리 해야할 일을 명시 , render()가 실행되기 전에 실행되어야하는 코드를 적는 곳
+- render() : 마운트됨(즉 화면에 그려짐)
+- componentDidMount() : 마운트 직후에 실행될 코드를 작성하는 함수
 
-const DetailsComponent = () => (
-  <Suspense fallback={renderLoader()}>
-    <AvatarComponent />
-  </Suspense>
-)
+</br>
+
+> 최초랜더링 후 상태 변화 시 호출되는 함수
+
+- shouldCompoentUpdate()
+  - rendom() 호출할 필요가 있냐/없냐를 판단해주는 함수 return 값이 true면 render()함수 호출, return 값이 false면 render()함수를 호출하지 않는다.
+  - shouldCompoentUpdate(nextProps, nextState){
+    return true / false
+    }
+- compoenntWillUpdate()
+  - 새로운 속성이나 상태를 받은 후 렌더링 직전에 호출된다. (state변경 시 shouldCompoentUpdate()가 true를 반환했을 때 render() 함수전에 호출되는 함수 , 초기 렌더링에서는 호출되지 않는다.)
+  - shouldComponentUpdate가 불린 이후 컴포넌트 업데이트 직전에 호출되는 함수
+- componentDidUpdate()
+  - render()함수로 업데이트가 완료되고 호출되는 함수
+  - 갱신이 일어난 직후 (render() 후 ) 실행 , 최초 렌더링에서는 호출되지 않음
+
+<br />
+<br />
+
+## 함수형
+
+render -> useEffect
+
+- useEffect() : 렌더링 직후 ( == componentDidMount와 componentDidUpdate같은 역할 )
+
+```
+
 
 ```
