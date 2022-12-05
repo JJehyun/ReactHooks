@@ -22,7 +22,7 @@
 >리액트 생명 구조 참조 사진
 ![mount 1](https://user-images.githubusercontent.com/86187456/205697100-db040fcb-535a-48d0-bc01-49f096cc8d23.png)
 ![생명구조2](https://user-images.githubusercontent.com/86187456/205697118-d3597a9e-b3a9-4c30-838c-7ee4fb2a3d69.png)
-![2022-12-06 02;01;24_](https://user-images.githubusercontent.com/86187456/205697407-cbe4e6b8-d07b-4ef5-b944-92463da72bca.png)
+
 
 
 > 라이프 사이클 메소드
@@ -71,6 +71,10 @@
 
   </br>
   </br>
+  
+  ---
+  ---
+  ![2022-12-06 02;01;24_](https://user-images.githubusercontent.com/86187456/205697407-cbe4e6b8-d07b-4ef5-b944-92463da72bca.png)
 
 ```
 ReactDOM 순서
@@ -110,18 +114,5 @@ compoenntWillUpdate() -> rener() ->componentDidUpdate()
 <br />
 <br />
 
-## 함수형
 
-render -> useEffect
-
-- useEffect() : 렌더링 직후 ( == componentDidMount와 componentDidUpdate같은 역할 )
-- useEffect(){
-  return function(){} --> componentWillUnmount() 와 같은 역할
-  }
-
-```js
-var
-
-
-```
 
