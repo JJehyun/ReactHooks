@@ -19,12 +19,22 @@
 
 ## React React.라이프 사이클 사용
 
+>리액트 생명 구조 참조 사진
+![mount 1](https://user-images.githubusercontent.com/86187456/205697100-db040fcb-535a-48d0-bc01-49f096cc8d23.png)
+![생명구조2](https://user-images.githubusercontent.com/86187456/205697118-d3597a9e-b3a9-4c30-838c-7ee4fb2a3d69.png)
+![2022-12-06 02;01;24_](https://user-images.githubusercontent.com/86187456/205697407-cbe4e6b8-d07b-4ef5-b944-92463da72bca.png)
+
+
 > 라이프 사이클 메소드
 
 - will : 어떤 작업을 시작하기 전에 실행
 - Did : 어떤 작업 후에 실행
 
 ---
+
+
+
+
 
 - Mount
 
@@ -114,3 +124,4 @@ var
 
 
 ```
+
