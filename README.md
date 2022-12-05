@@ -1,4 +1,4 @@
-# React hook 정리 중(branch, 예제 코드 참조)
+# React hook 정리 중(branch, pages 예제 코드 참조)
 
 - useRef (DOM 객체 접근, QuerySelector같은 기능)</br>
 - useEffect
