@@ -75,7 +75,7 @@ compoenntWillUpdate() -> rener() ->componentDidUpdate()
 ```
 
 > 최초 렌더링
-
+- state, context, defaultProps 저장
 - componentWillMount() : 컴포넌트가 생성되기 전에 처리 해야할 일을 명시 , render()가 실행되기 전에 실행되어야하는 코드를 적는 곳
 - render() : 마운트됨(즉 화면에 그려짐)
 - componentDidMount() : 마운트 직후에 실행될 코드를 작성하는 함수
