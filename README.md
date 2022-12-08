@@ -16,7 +16,7 @@
 - React LifeCycle (리액트 생명 주기)
 - GraphQL & Apollo (REST API Underfetching 문제 해결)
 - React-SWR (캐쉬 관리, 데이터 관리)
-- GraphQL & Apollo (REST API Underfetching 문제 해결)
+- React-Redux (상태 전역 관리)
 ---
 
 ## React React.라이프 사이클 사용
