@@ -14,103 +14,125 @@
 - Suspense (비동기 작업 동안 대체 컴포넌트 띄우기)
 - React.lazy() (비동기 작업 동안 대체 컴포넌트 띄우기)
 - React LifeCycle (리액트 생명 주기)
+- GraphQL & Apollo (REST API Underfetching 문제 해결)
+- Redux-Toolkit (state전역 관리 , Props drilling 문제 해결)
 
 ---
 
-## React React.라이프 사이클 사용
+## redux-설명 (action , Reducer , store , dispatch)
 
-> 라이프 사이클 메소드
-
-- will : 어떤 작업을 시작하기 전에 실행
-- Did : 어떤 작업 후에 실행
-
----
-
-- Mount
-
-  1. constructor : 컴포넌트 생성자 메서드, 컴포넌트를 만들 때 맨 처음 실행 , 초기 state 정의 가능
-  2. getDerivedStateFromProps : props로 받아온 값을 state에 동기화 시키는 함수
-  3. render : 컴포넌트를 그려주는 함수
-  4. componentDidMount : 랜더링 후에 실행되는 함수 (이벤트,비동기작업 처리)
-
-  </br>
-
-- update (props변경, state변경, 부모 컴포넌트 리렌더링 , this.forceUpdate로 강제 렌더링 할때)
-
-  1. getDerivedStateFromProps : props로 받아온 값을 state에 동기화 시키는 함수
-  2. shouldCompoentUpdate : 렌더링을 할지 말지를 결정하는 함수
-  3. render : 컴포넌트 랜더링
-  4. getSnapshotBeforeUpdate : 컴포넌트 변화를 DOM에 반영하기 직전에 호출되는 함수,
-     주로 업데이트하기 직전의 값을 참고할 일이 있을 때 활용한다.
-  5. componentDidUpdate : 리렌더링 완료한 후 실행
-
-  </br>
-
-- Unmounting
-
-  1. componentWillUnmount : 컴포넌트를 DOM에서 제거할 때 실행되는 함수
-  2. componentDidCatch : 렌더링 중 에러가 났을 때 오류 UI를 보여주도록 할 수있게 하는 함수
-
-  ```js
-  componentDidCatch(error, info) {
-  this.setState({
-    error: true;
-  });}
-  // .. 에러시 보여줄 작업
-  ```
-
-  </br>
-  </br>
-
-```
-ReactDOM 순서
-//화면이 처음 그려질 때
-1.getDefaultProps() -> getInitalState() -> componentWillMount() -> render() ->
-componentDidMount()
-
-//컴포넌트에 변화가 생겼을 때
-1.componentWillReceiverProps() -> shouldCompoentUpdate() ->
-compoenntWillUpdate() -> rener() ->componentDidUpdate()
-
-```
-
-> 최초 렌더링
-- state, context, defaultProps 저장
-- componentWillMount() : 컴포넌트가 생성되기 전에 처리 해야할 일을 명시 , render()가 실행되기 전에 실행되어야하는 코드를 적는 곳
-- render() : 마운트됨(즉 화면에 그려짐)
-- componentDidMount() : 마운트 직후에 실행될 코드를 작성하는 함수
-- componentWillUnmount() : 컴포넌트가 소멸될 때 뒷 처리하는 함수
-  </br>
-  </br>
-
-> 최초랜더링 후 상태 변화 시 호출되는 함수
-
-- shouldCompoentUpdate()
-  - rendom() 호출할 필요가 있냐/없냐를 판단해주는 함수 return 값이 true면 render()함수 호출, return 값이 false면 render()함수를 호출하지 않는다.
-  - shouldCompoentUpdate(nextProps, nextState){
-    return true / false
-    }
-- compoenntWillUpdate()
-  - 새로운 속성이나 상태를 받은 후 렌더링 직전에 호출된다. (state변경 시 shouldCompoentUpdate()가 true를 반환했을 때 render() 함수전에 호출되는 함수 , 초기 렌더링에서는 호출되지 않는다.)
-  - shouldComponentUpdate가 불린 이후 컴포넌트 업데이트 직전에 호출되는 함수
-- componentDidUpdate()
-  - render()함수로 업데이트가 완료되고 호출되는 함수
-  - 갱신이 일어난 직후 (render() 후 ) 실행 , 최초 렌더링에서는 호출되지 않음
+- > Props drilling를 피하기 위한 redux!
+- > Component에서 Action Creator를 통해 Action을 생성하고 그 Action을 Dispath함수로 실행시켜준다. 그러면 Store에서 해당 Reducer로 매칭되는 Action이 있는지 확인하고 Store에 저장된 상태를 변경시켜준다.
+- > `action` : 특정 기능을 수행,호출 하기 위한 데이터를 표현한 객체
+- > `Reducer` : store의 상태의 변화를 주기 위한 함수이다.
+- > `store` : 리덕스에서 상태(state)를 저장하는 공간, 한 어플리케이션 당 하나의store를 가지고, store안에는 state와 reducer가 내장되어 있다.
+- > `dispatch` : action를 발생시키는 것, dispatch함수에 action 객체를 전달시켜 reduecer에게 상태 변경을 요청하는 역할
+- > `Subscribe` : `store` 내장 함수 중 하나 로 `reducer`가 호출 될 때 Subscribe된 함수 및 객체를 호출 한다.
+- > 컴포넌트간 State 공유가 편리함(props 대체)
 
 <br />
 <br />
 
-## 함수형
+---
 
-render -> useEffect
+## Redux의 2가지 규칙
 
-- useEffect() : 렌더링 직후 ( == componentDidMount와 componentDidUpdate같은 역할 )
-- useEffect(){
-  return function(){} --> componentWillUnmount() 와 같은 역할
-  }
+1. > `store`는 단 하나만을 생성하는 것을 권장한다. (다양한 reducer를 만들어 다향한 상태를 구분해서 관리)
+2. > 상태는 읽기 전용임 (기존의 상태는 건드리지 않고 새로운 state를 생성해 상태를 변경 시켜야함, redux- Toolkit은 immer를 지원하긴 함)
+
+<br />
+
+## Redux 동작
+
+1. ui 렌더링 시 UI 컴포넌트는 `STORE`에서 상태를 접근해서 STATE를 받아온다.
+2. UI에서 STATE 변경 시 `dispatch`함수를 이용해서 `action`를 실행시킨다. `reducer`에게 state 변경 요청
+3. `action`을 받은 `store`는 `reducer`를 실행 하고 `reducer`의 return 값을 state에 저장한다.
+4. `Subscribe` 된 UI는 STATE 업데이트로 변경된 데이터를 새롭게 랜더링 한다.
+
+<br />
+<br />
+
+---
+
+<br />
+<br />
+
+- > `configureStore()`는 별도의 메서드 없이 바로 미들 웨어 추가가 가능 (Redux - ToolTIX) ,<br /> 리덕스 설정을 간편하게 할 수 있도록 도와줌 (redux-thunk 제공)
+- > `createSlice`는 `action` , `reducer`를 따로 생성하지 않아도 되도록 도와줌<br />선언한 slice의 name에 따라서 액션 생성자, 액션 타입, 리듀서를 자동으로 생성해줌
+
+  > store 생성하기(1)
 
 ```js
-var
+//store 생성 (state 생성 , state 등록 , state 변경함수 export)
+import { configureStore, createSlice } from "@reduxjs/toolkit";
 
+//전역 관리할 STATE 생성 , state 변경 함수 생성
+let state = createSlice({
+  name: "state이름",
+  //저장할 STATE 값(initialState)
+  initialState: { name: "kim", age: 20 },
+  //state변경 함수 등록(reducers)
+  reducers: {
+    //파라미터는 기존 state를 뜻함 return값 => state
+    //redux는 기본적으로 immer를 지원함
+    //파라미터를 사용 시 .payload를 붙여야함
+    statechange(state, 첫번째파라미터, 두번째파라미터) {
+      return (state.age += 첫번째파라미터.payload);
+    },
+  },
+});
 
+// 위에서 정의한 state에 등록
+export default configureStore({
+  reducer: {
+    아무이름: state.reducer,
+  },
+});
+//state 변경 함수 export  (actions : reducers의 함수들 return)
+export let { statechange } = state.actions;
 ```
+
+## 위 코드 간단 설명
+
+- initialState를 통해 state의 처음 상태를 정
+- reducers에서 액션 정의 (state 변경 함수 정의)
+- export 로 다른 컴포넌트에서 state변경 함수 사용할 수 있도록 함
+  <br />
+  <br />
+
+> redux 사용할 컴포넌트 지정 (index.tsx에 Provider 묶어주기) (2)
+
+```js
+<Provider store={store}>
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+</Provider>
+```
+
+> redux state 사용하기 (3) , state 변경(useDispatch)
+
+```js
+import { useSelector, useDispatch } from "react-redux/es/exports";
+import statechange from "./store.js";
+//redux가 관리하는 모든 state값이 return
+let a = useSelector((state) => {
+  return state;
+});
+
+console.log(a.아무이름);
+
+//useDispatch : reducer에게 state변경을 요청함
+//useDispatch로 묶어준 후 state 변경
+let dispatch = useDispatch();
+<button
+  onClick={() => {
+    useDispatch(statechange);
+  }}
+></button>;
+```
+
+## 위 코드 간단 설명
+
+- `useSelector()`로 스토어에서 현재 항태를 값을 가져온다.
+- `useDispatch()`로 통해 변경되는 값을 스토어에 전달한다.
