@@ -14,7 +14,8 @@
 - Suspense (비동기 작업 동안 대체 컴포넌트 띄우기)
 - React.lazy() (비동기 작업 동안 대체 컴포넌트 띄우기)
 - React LifeCycle (리액트 생명 주기)
-
+- React.redux (리액트 전역 상태관리)
+- React.SWR (캐쉬 관리, 데이터 관리)
 ---
 
 ## React React.라이프 사이클 사용
