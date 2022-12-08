@@ -4,7 +4,7 @@
 - useEffect
 - Context API (전역 데이터 관리)
 - useMemo (컴포넌트 기능 최적화(변수))
-- use Callback (컴포넌트 기능 최적화(함수))
+- useCallback (컴포넌트 기능 최적화(함수))
 - useReducer (state 생성,관리)
 - React.memo (컨포넌트 기능 최적화(컴포넌트))
 - Custom hook (나만의 Hook 만들기)
@@ -14,8 +14,9 @@
 - Suspense (비동기 작업 동안 대체 컴포넌트 띄우기)
 - React.lazy() (비동기 작업 동안 대체 컴포넌트 띄우기)
 - React LifeCycle (리액트 생명 주기)
-- React.redux (리액트 전역 상태관리)
-- React.SWR (캐쉬 관리, 데이터 관리)
+- GraphQL & Apollo (REST API Underfetching 문제 해결)
+- React-SWR (캐쉬 관리, 데이터 관리)
+- GraphQL & Apollo (REST API Underfetching 문제 해결)
 ---
 
 ## React React.라이프 사이클 사용
