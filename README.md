@@ -19,6 +19,14 @@
 
 ---
 
+
+![redux3](https://user-images.githubusercontent.com/86187456/206486033-e66766e8-0f0f-4c2e-9b7c-06b146be292a.png)
+![redux](https://user-images.githubusercontent.com/86187456/206486044-5c825cda-93f9-44cb-a27a-ba5e729b494e.png)
+![redux2](https://user-images.githubusercontent.com/86187456/206486051-07ecdfd2-42bc-4f8d-8443-d7f4f8377797.png)
+
+
+
+
 ## redux-설명 (action , Reducer , store , dispatch)
 
 - > Props drilling를 피하기 위한 redux!
@@ -136,3 +144,4 @@ let dispatch = useDispatch();
 
 - `useSelector()`로 스토어에서 현재 항태를 값을 가져온다.
 - `useDispatch()`로 통해 변경되는 값을 스토어에 전달한다.
+
